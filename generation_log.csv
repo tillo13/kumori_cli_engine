@@ -1,0 +1,31 @@
+image_name,new_file_name,identitynet_strength_ratio,adapter_strength_ratio,num_inference_steps,guidance_scale,seed,success,error_message,style_name,prompt,negative_prompt,time_taken,current_timestamp,huggingface_model,gender,gender_confidence,age,age_confidence,subdir_name,chosen_pose,most_alike_pose,most_alike_eye_distance,most_alike_nose_mouth_distance,most_alike_distance_difference
+milly.jpg,RunDiffusion_Juggernaut-XL-Lightning_milly_20240513083309.png,1.7638351683698432,0.9255963910310576,55,3.9560658734491896,2265483398,True,,,"
+artistic digital painting, a woman with beautiful blue hair, orange beanie and scarf, eyes with full lashes. Warm and cool tones, starry background. Stars art style, water drops, romantic, intense lines, gongbi, loose paint, stylize 750, AR 71:98
+","
+Realism, poorly drawn hands/face, bad proportions. Poor quality: bad eyes, text, cropped, out of frame, jpeg artifacts.
+",108.709761,2024-05-13 08:33:09,RunDiffusion/Juggernaut-XL-Lightning,Female,0.9882554,(25-32),0.48690784,,poses/male_king.jpeg,anyone_pose1.webp,41.20746965727882,15.600320509527995,199.16019284284772
+brad.jpg,wangqixun_YamerMIX_v8_brad_20240513083442.png,1.9186738741671594,0.8207490402091132,57,4.119016736484054,4117988956,True,,Minimalism,"
+male noble, high fantasy art, imppressionist painting, brom, john howe, alan lee, hobbit art, luis royo, tern expression,  wearing golden stag antler crown, fur-lined cloak shades of white, greys, light brown, wolf pelt, robe over right shoulder, chest adorned with mystical medallions, holding wooden staff, rough finish, glowing orb top, curled grip
+","
+Realism, poorly drawn hands/face, bad proportions. Poor quality: bad eyes, text, cropped, out of frame, jpeg artifacts.
+",93.500736,2024-05-13 08:34:42,wangqixun/YamerMIX_v8,Male,0.9999969,(25-32),0.90334237,,poses/male_king.jpeg,anyone_pose1.webp,41.20746965727882,15.600320509527995,42.929639231503145
+milly.jpg,wangqixun_YamerMIX_v8_milly_20240513083700.png,1.8433642407969095,0.9548475778321515,48,7.917152859807956,2448511380,True,,,"
+artistic digital painting, a woman with beautiful blue hair, orange beanie and scarf, eyes with full lashes. Warm and cool tones, starry background. Stars art style, water drops, romantic, intense lines, gongbi, loose paint, stylize 750, AR 71:98
+","
+Realism, poorly drawn hands/face, bad proportions. Poor quality: bad eyes, text, cropped, out of frame, jpeg artifacts.
+",137.609793,2024-05-13 08:37:00,wangqixun/YamerMIX_v8,Female,0.9882554,(25-32),0.48690784,,poses/female_painting_bluehair.webp,anyone_pose1.webp,41.20746965727882,15.600320509527995,199.16019284284772
+brad.jpg,RunDiffusion_Juggernaut-XL-Lightning_brad_20240513083852.png,1.6551365474568647,0.8235976405716599,36,4.150148441906994,3974447556,True,,,"
+male noble, high fantasy art, imppressionist painting, brom, john howe, alan lee, hobbit art, luis royo, tern expression,  wearing golden stag antler crown, fur-lined cloak shades of white, greys, light brown, wolf pelt, robe over right shoulder, chest adorned with mystical medallions, holding wooden staff, rough finish, glowing orb top, curled grip
+","
+Realism, poorly drawn hands/face, bad proportions. Poor quality: bad eyes, text, cropped, out of frame, jpeg artifacts.
+",111.74,2024-05-13 08:38:52,RunDiffusion/Juggernaut-XL-Lightning,Male,0.9999969,(25-32),0.90334237,,poses/female_painting_bluehair.webp,anyone_pose1.webp,41.20746965727882,15.600320509527995,42.929639231503145
+brad.jpg,RunDiffusion_Juggernaut-X-v10_brad_20240513084017.png,1.5688770073299232,0.8338933387401939,49,7.417149977150235,982637358,True,,,"
+male noble, high fantasy art, imppressionist painting, brom, john howe, alan lee, hobbit art, luis royo, tern expression,  wearing golden stag antler crown, fur-lined cloak shades of white, greys, light brown, wolf pelt, robe over right shoulder, chest adorned with mystical medallions, holding wooden staff, rough finish, glowing orb top, curled grip
+","
+Realism, poorly drawn hands/face, bad proportions. Poor quality: bad eyes, text, cropped, out of frame, jpeg artifacts.
+",84.67263,2024-05-13 08:40:17,RunDiffusion/Juggernaut-X-v10,Male,0.9999969,(25-32),0.90334237,,poses/male_king.jpeg,anyone_pose1.webp,41.20746965727882,15.600320509527995,42.929639231503145
+milly.jpg,wangqixun_YamerMIX_v8_milly_20240513084228.png,1.850153283468588,0.9469638599014499,44,2.918517333293248,461648434,True,,,"
+artistic digital painting, a woman with beautiful blue hair, orange beanie and scarf, eyes with full lashes. Warm and cool tones, starry background. Stars art style, water drops, romantic, intense lines, gongbi, loose paint, stylize 750, AR 71:98
+","
+Realism, poorly drawn hands/face, bad proportions. Poor quality: bad eyes, text, cropped, out of frame, jpeg artifacts.
+",131.519071,2024-05-13 08:42:28,wangqixun/YamerMIX_v8,Female,0.9882554,(25-32),0.48690784,,poses/female_painting_bluehair.webp,anyone_pose1.webp,41.20746965727882,15.600320509527995,199.16019284284772
