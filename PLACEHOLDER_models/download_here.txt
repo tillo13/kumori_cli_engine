@@ -1,0 +1,5 @@
+download here: 
+https://drive.google.com/drive/folders/1N1SvrzlFuBWBLTu-Dd5W1ak4qMFhL9pY?usp=sharing
+
+
+save folder as models (and antelope v2) in the kumori_cli_engine folder directly.
