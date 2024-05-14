@@ -24,11 +24,30 @@ This project, therefore, extends the original brilliance of InstantID into a rea
 
 ## Getting Started
 
-To fully utilize the Kumori CLI tool, follow these initial setup steps. These instructions will guide you through installing any necessary prerequisites, cloning the project, and setting up your environment.
+# Windows Users: Automated Setup Script
+For Windows users, there's an automated batch script auto_install_kumori_cli.bat available in the root of the project directory. This script handles the complete setup process, including environment setup, repository cloning, dependency installation, and more.
 
-### Installation Instructions
+To Use the Automated Script:
 
-Before the installation of the Kumori CLI engine , certain prerequisites must be in place:
+Double-click the auto_install_kumori_cli.bat file or run it using the command line:
+
+```
+./auto_install_kumori_cli.bat
+```
+
+Follow the on-screen instructions. The script will:
+
+Check for Python installation.
+Create and activate a Python virtual environment.
+Clone the kumori_cli_engine repository.
+Install required Python libraries.
+Install the appropriate version of PyTorch with CUDA support.
+Download and extract additional files for facial detection and analysis.
+Note for Non-Windows Users: While this script is designed for Windows, you can refer to it for the required steps and adapt the commands for macOS or Linux environments.
+
+### Manual Installation Instructions
+
+For those who prefer or need to install everything manually, detailed step-by-step instructions for the Kumori CLI engine, certain prerequisites must be in place:
 
 1. **Python 3.8 or Newer**: Ensure you have Python installed on your system. This project requires Python 3.8 or newer.
 
@@ -219,7 +238,40 @@ This rich logging capability provides an unparalleled advantage for users and re
 
 - **Enhanced Experimentation**: With detailed records, users can more systematically experiment with different configurations, styles, or demographics, making informed decisions to refine their creative or research endeavors.
 
-In essence, the `generation_log.csv` not only serves as a vital record-keeping tool but also as a catalyst for exploration, experimentation, and optimization within the advanced CLI-based image generation tool, setting it apart from and ahead of the traditional InstantID usage scenario.
+
+Additionally, a utility script `summarize_and_merge_generation_log.py` is provided to help you analyze and summarize your generation results:
+
+#### Purpose of `summarize_and_merge_generation_log.py`
+
+The `summarize_and_merge_generation_log.py` script is a powerful tool designed to help users determine their favorite outcomes from the generated images. This script analyzes the logs generated during the image generation process, providing detailed statistics and insights into the effectiveness of different models and settings.
+
+#### What The Script Does:
+1. **Merges Multiple Log Files**: Combines multiple `generation_log.csv` files into a single merged log if multiple runs were executed.
+2. **Tracks and Calculates Metrics**: Keeps track of various metrics such as `identitynet_strength_ratio`, `adapter_strength_ratio`, `num_inference_steps`, `guidance_scale`, and more for each model used.
+3. **Cleans Up Log Files**: Removes rows with missing or insufficient data to ensure the accuracy of analysis.
+4. **Provides Detailed Stats**: Outputs detailed statistics for individual models as well as combined averages across all models. This includes usage counts, average values of key metrics, and more.
+5. **Efficiency Indexes**: Calculates and displays special indexes like the Preference Efficiency Index (PEI) and Model Efficiency Index (MEI) to rank models based on performance and effectiveness.
+
+#### How to Use the Script
+
+1. **Navigate to `generation_images` Folder**:
+   Ensure you are in the `generation_images` folder where your generated images and log files are stored.
+   ```sh
+   cd kumori_cli_engine/generation_images
+Run the Script: Execute the summarize_and_merge_generation_log.py script using Python.
+```
+python summarize_and_merge_generation_log.py
+```
+# Review Outputs and Stats:
+
+Detailed stats and efficiency indexes will be printed to the console.
+Individual and combined stats give insights into which models and settings were most effective.
+Use these insights to fine-tune your configurations and prompts for future runs.
+By using the summarize_and_merge_generation_log.py script, users can gain valuable insights into their image generation processes, allowing for more informed decisions and better optimization of future generation tasks.
+
+In essence, the generation_log.csv and summarize_and_merge_generation_log.py script not only serve as vital record-keeping tools but also as catalysts for exploration, experimentation, and optimization within the advanced CLI-based image generation tool, setting it apart from and ahead of the traditional InstantID usage scenario.
+
+In essence, the `generation_log.csv` not only serves as a vital record-keeping tool but also as a catalyst for exploration, experimentation, and optimization within the advanced CLI-based image generation tool, setting it apart from and ahead of the traditional InstantID usage scenario.  Used in concert with `summarize_and_merge_generation_log.py` will help you fine-tune your likes!
 
 ### gender_detect.py
 

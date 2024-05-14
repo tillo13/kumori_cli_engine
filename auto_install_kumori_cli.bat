@@ -1,0 +1,217 @@
+@echo off
+setlocal
+
+:: Get start timestamp
+for /f %%i in ('powershell -command "Get-Date -Format HH:mm:ss"') do set start_time=%%i
+
+echo ======================================================
+echo Setting up the Kumori CLI environment...
+echo ======================================================
+echo.
+echo Starting script @: %start_time%
+echo.
+
+:: Get initial free space using PowerShell
+echo ------------------------------------------------------
+echo Initial Disk Space Available:
+echo ------------------------------------------------------
+powershell -command "Get-PSDrive -PSProvider FileSystem | Where-Object { $_.Name -eq 'C' } | Select-Object Used, Free"
+
+echo ------------------------------------------------------
+echo Step 1: Checking for Python installation...
+echo ------------------------------------------------------
+python --version
+if %errorlevel% neq 0 (
+    echo ERROR: Python is not installed or not in the PATH. Please install Python 3.8 or newer.
+    pause
+    exit /b
+)
+echo.
+
+echo ------------------------------------------------------
+echo Step 2: Checking and cleaning up existing directories...
+echo ------------------------------------------------------
+if exist kumori_venv (
+    echo Deleting existing kumori_venv directory...
+    rmdir /S /Q kumori_venv
+    if %errorlevel% neq 0 (
+        echo ERROR: Failed to delete kumori_venv directory.
+        pause
+        exit /b
+    )
+)
+if exist kumori_cli_engine (
+    echo Deleting existing kumori_cli_engine directory...
+    rmdir /S /Q kumori_cli_engine
+    if %errorlevel% neq 0 (
+        echo ERROR: Failed to delete kumori_cli_engine directory.
+        pause
+        exit /b
+    )
+)
+echo Existing directories cleaned up.
+echo.
+
+echo ------------------------------------------------------
+echo Step 3: Creating Python virtual environment...
+echo ------------------------------------------------------
+python -m venv kumori_venv
+if %errorlevel% neq 0 (
+    echo ERROR: Failed to create Python virtual environment.
+    pause
+    exit /b
+)
+echo.
+
+echo ------------------------------------------------------
+echo Step 4: Activating the virtual environment...
+echo ------------------------------------------------------
+call .\kumori_venv\Scripts\activate
+if %errorlevel% neq 0 (
+    echo ERROR: Failed to activate the virtual environment.
+    pause
+    exit /b
+)
+echo Virtual environment 'kumori_venv' activated.
+echo.
+
+echo ------------------------------------------------------
+echo Step 5: Installing gdown package and other dependencies...
+echo ------------------------------------------------------
+pip install gdown
+if %errorlevel% neq 0 (
+    echo ERROR: Failed to install gdown package.
+    pause
+    exit /b
+)
+echo gdown package installed successfully.
+echo.
+
+echo ------------------------------------------------------
+echo Step 6: Cloning Kumori CLI Engine repository...
+echo ------------------------------------------------------
+git clone https://github.com/tillo13/kumori_cli_engine.git
+if %errorlevel% neq 0 (
+    echo ERROR: Failed to clone the Kumori CLI Engine repository.
+    pause
+    exit /b
+)
+cd kumori_cli_engine
+echo Repository cloned and navigated to 'kumori_cli_engine' directory.
+echo.
+
+echo ------------------------------------------------------
+echo Step 7: Installing dependencies from requirements.txt... This may take a minute or two...
+echo ------------------------------------------------------
+pip install -r requirements.txt -v
+if %errorlevel% neq 0 (
+    echo ERROR: Failed to install dependencies.
+    pause
+    exit /b
+)
+echo.
+
+echo ------------------------------------------------------
+echo Step 8: Uninstalling existing PyTorch packages...
+echo ------------------------------------------------------
+pip uninstall torch torchvision torchaudio -y
+if %errorlevel% neq 0 (
+    echo ERROR: Failed to uninstall existing PyTorch packages.
+    pause
+    exit /b
+)
+echo.
+
+echo ------------------------------------------------------
+echo Step 9: Installing PyTorch with CUDA support for RTX 3060... This may take a minute or two...
+echo ------------------------------------------------------
+pip install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu118
+if %errorlevel% neq 0 (
+    echo ERROR: Failed to install PyTorch with CUDA support.
+    pause
+    exit /b
+)
+echo.
+
+echo ------------------------------------------------------
+echo Step 10: Downloading and extracting models_and_facial_landmarks_model.zip...
+echo ------------------------------------------------------
+
+:: Create the temporary Python script to download and extract the ZIP file
+if exist temp_download_and_extract.py del temp_download_and_extract.py
+
+echo import gdown > temp_download_and_extract.py
+echo import zipfile >> temp_download_and_extract.py
+echo import os >> temp_download_and_extract.py
+echo. >> temp_download_and_extract.py
+echo url = 'https://drive.google.com/uc?id=1jdfyvxHMvAN7OJMW3zGn0IZZ107OxmqN' >> temp_download_and_extract.py
+echo zip_filename = 'models_and_facial_landmarks_model.zip' >> temp_download_and_extract.py
+echo gdown.download(url, zip_filename, quiet=False) >> temp_download_and_extract.py
+echo unzip_dir = os.path.dirname(os.path.abspath(zip_filename)) >> temp_download_and_extract.py
+echo with zipfile.ZipFile(zip_filename, 'r') as zip_ref: >> temp_download_and_extract.py
+echo     zip_ref.extractall(unzip_dir) >> temp_download_and_extract.py
+echo print(f"File downloaded and extracted to {unzip_dir}") >> temp_download_and_extract.py
+
+:: Run the temporary Python script
+python temp_download_and_extract.py
+
+if %errorlevel% neq 0 (
+    echo ERROR: Failed to download and extract the files.
+    del temp_download_and_extract.py
+    pause
+    exit /b
+)
+echo The additional files have been downloaded and extracted successfully.
+echo.
+
+:: Delete the temporary Python script
+del temp_download_and_extract.py
+
+:: Get end timestamp
+for /f %%i in ('powershell -command "Get-Date -Format HH:mm:ss"') do set end_time=%%i
+
+:: Calculate time difference
+for /f %%i in ('powershell -command "$start=[datetime]::Parse(''%start_time%''); $end=[datetime]::Parse(''%end_time%''); $diff=$end-$start; $diff.ToString(''hh\:mm\:ss'')"') do set time_diff=%%i
+
+echo.
+:: Get final free space using PowerShell
+echo ------------------------------------------------------
+echo Final Disk Space Available:
+echo ------------------------------------------------------
+powershell -command "Get-PSDrive -PSProvider FileSystem | Where-Object { $_.Name -eq 'C' } | Select-Object Used, Free"
+
+echo.
+echo Time to install: %time_diff% (hh:mm:ss)
+echo.
+
+echo ------------------------------------------------------
+echo IMPORTANT: Custom PyTorch Installation for Different GPUs
+echo ------------------------------------------------------
+echo We configured PyTorch with CUDA 11.8, which supports a variety of GPUs including NVIDIA RTX 3060.
+echo If you have a different GPU, please follow these steps:
+echo 1. Visit https://pytorch.org to get the appropriate installation command for your GPU.
+echo 2. Uninstall the current PyTorch packages using the following command:
+echo    pip uninstall torch torchvision torchaudio -y
+echo 3. Install the PyTorch version specified by the command from PyTorch's website.
+echo.
+
+echo ======================================================
+echo Setup complete!
+echo ======================================================
+echo All necessary files have been downloaded and extracted.
+echo The correct version of PyTorch must be ensured for your specific GPU.
+echo.
+
+echo Please follow these steps to start using Kumori CLI:
+echo 1. Activate the virtual environment with: .\kumori_venv\Scripts\activate
+echo 2. Navigate to the kumori_cli_engine directory: cd kumori_cli_engine
+echo 3. Run the Kumori CLI: python .\kumori_cli.py
+echo.
+
+echo NOTE: Now you're ready to roll!  Re-running this will remove/re-install from scratch if you have troubles.
+echo Check out the configs.py file to make changes to your personal preferences!
+echo Additionally, for more information, refer to the README.md file located here: https://github.com/tillo13/kumori_cli_engine/blob/main/README.md
+echo.
+
+pause
+endlocal
