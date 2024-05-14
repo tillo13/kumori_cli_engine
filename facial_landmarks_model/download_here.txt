@@ -1,4 +1,4 @@
 download from here: 
-https://drive.google.com/drive/folders/11KBCipdAdCyMZFhKDp17W69Yanro3Yzp?usp=sharing
+https://drive.google.com/file/d/1jdfyvxHMvAN7OJMW3zGn0IZZ107OxmqN/view?usp=sharing
 
 save folder as facial_landmarks_model in the kumori_cli_engine folder directly.
