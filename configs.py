@@ -31,7 +31,7 @@ artistic digital painting, a woman with beautiful blue hair, orange beanie and s
 """
 
 NEGATIVE_PROMPT="""
-Realism, poorly drawn hands/face, bad proportions. Poor quality: bad eyes, text, cropped, out of frame, jpeg artifacts.
+poorly drawn hands/face, bad proportions, nsfw, bad eyes, text, cropped, out of frame, jpeg artifacts.
 """
 #########LOOPS#########################
 #how many times should we process this image set?
@@ -462,8 +462,6 @@ def initial_image(generate_image_func):
 
 
                 print("\n===============OVERRIDE CHECKER!=====================")
-
-
                 print(f"Evaluating final check to set overrides if in filename: {face_image_path}")
                 if "female" in face_image_path.lower():
                     selected_pose = choose_random_pose(GLOBAL_FEMALE_POSE_LIST)
@@ -510,9 +508,11 @@ def initial_image(generate_image_func):
                     print("PRESET_POSE_ENABLED is False, setting pose_image_path to None.")
                     pose_image_path = None
 
-                # This ensures the prompt defaults to "a human" if both FEMALE_PROMPT and MALE_PROMPT are blank
+                # This ensures the prompt defaults to DEFAULT_PROMPT if both FEMALE_PROMPT and MALE_PROMPT are blank
+                DEFAULT_PROMPT = "a nicely dressed human"
+
                 if not FEMALE_PROMPT.strip() and not MALE_PROMPT.strip():
-                    CHOSEN_PROMPT = "a human"
+                    CHOSEN_PROMPT = DEFAULT_PROMPT
                     print("Both FEMALE_PROMPT and MALE_PROMPT are blank, defaulting CHOSEN_PROMPT to \"a human\".")
                 else:
                     print(f"CONFIGS.PY: Success in finding gender, therfore CHOSEN_PROMPT sending into KUMORI_CLI_ENGINE.PY with: {CHOSEN_PROMPT}")
