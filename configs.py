@@ -513,6 +513,11 @@ def initial_image(generate_image_func):
                 # Confirm CHOSEN_PROMPT right before usage
                 print("CONFIGS.PY: CHOSEN_PROMPT value BEFORE sending to APP.PY:", CHOSEN_PROMPT)
 
+                # Final override check for 'PRESET_POSE_ENABLED'
+                if not PRESET_POSE_ENABLED:
+                    print("PRESET_POSE_ENABLED is False, setting pose_image_path to None.")
+                    pose_image_path = None
+
                 print("==========OVERRIDE CHECKER COMPLETE===============")
 
                 print(f"*****\nPROMPT RIGHT BEFORE passing to app.py: {CHOSEN_PROMPT}")
