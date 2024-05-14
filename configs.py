@@ -111,8 +111,8 @@ def choose_random_pose(pose_list):
         if active_poses:
             return active_poses[0]
         else:
-            raise ValueError("No active poses available in the directory, go check to be sure you have some.")
-          
+            print("No active poses available in the directory, all good, Override will catch it.  Proceeding without a pose.")
+            return None
 
 # Dynamically create the STYLES list from imported style_list
 STYLES = [style["name"] for style in style_list]
