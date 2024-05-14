@@ -371,7 +371,7 @@ To fully harness the capabilities of `gender_detect.py` and `estimate_similar_fa
 ## Example pose to mimic (male):
 ![deer king](./poses/male_king.jpeg)
 
-#Outputs of Brad: 
+# Outputs of Brad: 
 
 ![brad_out1](./screenshots/brad_out1.png)
 ![brad_out2](./screenshots/brad_out2.png)
@@ -381,7 +381,7 @@ To fully harness the capabilities of `gender_detect.py` and `estimate_similar_fa
 
 ![bluehair painting](./poses/female_painting_bluehair.webp)
 
-#Outputs of Milly: 
+# Outputs of Milly: 
 
 ![milly_out1](./screenshots/milly_out1.png)
 ![milly_out2](./screenshots/milly_out2.png)
