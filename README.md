@@ -124,7 +124,7 @@ While CUDA is not strictly necessary for running the tool, using a GPU can signi
 
 Commands will differ slightly to incorporate CUDA support:
 
-    - For GPU-enabled systems (assuming CUDA is available), visit [PyTorch's Get Started page](https://pytorch.org/get-started/locally/) to select a command fitting your setup. An example for CUDA 11.8:
+For GPU-enabled systems (assuming CUDA is available), visit [PyTorch's Get Started page](https://pytorch.org/get-started/locally/) to select a command fitting your setup. An example for CUDA 11.8:
 
     ```bash
     pip install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu118
@@ -137,18 +137,20 @@ Commands will differ slightly to incorporate CUDA support:
     ```
 
 For my RTX3060, this is the command I get from pytorch.org on the homepage: 
-    ```
+
+    ```bash
     pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
     
     ```
-    and it will show something like; 
+    and it will show something like:
+
     ```
     (kumori) PS D:\test> pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
     Looking in indexes: https://download.pytorch.org/whl/cu118
-    Collecting torch
+    Collecting torch...
     ```
 
-    If you do not have a CUDA-enabled GPU, you can visit [PyTorch's official website](https://pytorch.org/get-started/locally/) to find the appropriate installation command for CPU-only support. Remember, the CUDA version (`cu118` in the command above) should match your system's CUDA installation if using GPU acceleration.
+If you do not have a CUDA-enabled GPU, you can visit [PyTorch's official website](https://pytorch.org/get-started/locally/) to find the appropriate installation command for CPU-only support. Remember, the CUDA version (`cu118` in the command above) should match your system's CUDA installation if using GPU acceleration.
 
 7. **Additional files needed via Google Drive**: For facial detection and landmarks analysis and AntelopeV2, ensure you have the following models in your `facial_landmarks_model` and `model` directories in the root of the project (download from the PLACEHOLDER_ links in the repo as too big for Github).
 
