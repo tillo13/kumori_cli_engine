@@ -130,7 +130,7 @@ For GPU-enabled systems (assuming CUDA is available), visit [PyTorch's Get Start
     pip install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu118
     ```
 
-    - For systems without GPU support, a standard PyTorch installation suffices:
+For systems without GPU support, a standard PyTorch installation suffices:
 
     ```bash
     pip install torch torchvision torchaudio
@@ -142,7 +142,7 @@ For my RTX3060, this is the command I get from pytorch.org on the homepage:
     pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
     
     ```
-    and it will show something like:
+and it will show something like:
 
     ```
     (kumori) PS D:\test> pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
@@ -323,28 +323,32 @@ To fully harness the capabilities of `gender_detect.py` and `estimate_similar_fa
 
 ### SCREENSHOT EXAMPLES
 
-Example pose to mimic (male)
+## Example pose to mimic (male):
 ![deer king](./poses/male_king.jpeg)
 
-Outputs of Brad: 
+#Outputs of Brad: 
 
 ![brad_out1](./screenshots/brad_out1.png)
 ![brad_out2](./screenshots/brad_out2.png)
 ![brad_out3](./screenshots/brad_out3.png)
 
-Example pose to mimic (female)
+## Example pose to mimic (female):
 
 ![bluehair painting](./poses/female_painting_bluehair.webp)
 
-Outputs of Milly: 
+#Outputs of Milly: 
 
 ![milly_out1](./screenshots/milly_out1.png)
 ![milly_out2](./screenshots/milly_out2.png)
 ![milly_out3](./screenshots/milly_out3.png)
 
-Process as it runs in Python CLI: 
+## Process as it runs in Python CLI: 
 
 ![process1](./screenshots/process1.png)
 ![process2](./screenshots/process2.png)
 ![process3](./screenshots/process3.png)
 ![process4](./screenshots/process4.png)
+
+### Questions/contact: 
+
+https://www.linkedin.com/in/andytillo/
