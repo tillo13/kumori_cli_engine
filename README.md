@@ -23,18 +23,158 @@ The motivation behind developing a CLI-based interface for InstantID interaction
 This project, therefore, extends the original brilliance of InstantID into a realm where developers and researchers can harness its capabilities in a more flexible, efficient, and programmable manner, opening new avenues for creative and analytical tasks without relying on graphical interfaces.
 
 ## Getting Started
-Instructions on setting up the environment, installing dependencies from `requirements.txt`, and the initial commands to run the application.
+
+To fully utilize the Kumori CLI tool, follow these initial setup steps. These instructions will guide you through installing any necessary prerequisites, cloning the project, and setting up your environment.
+
+### Installation Instructions
+
+Before the installation of the Kumori CLI engine , certain prerequisites must be in place:
+
+1. **Python 3.8 or Newer**: Ensure you have Python installed on your system. This project requires Python 3.8 or newer.
+
+2. **Git**: Git is essential for cloning the project repository to your local machine. If you do not have Git installed, please follow these instructions to install it:
+
+#### Installing Git
+
+- **Windows**:
+  a. Download the latest Git for Windows installer from [Git's official website](https://git-scm.com/download/win).
+  b. Run the installer and follow the installation prompts. Accepting the default options is recommended for most users.
+
+- **macOS**:
+  a. Git might already be installed on your machine. You can check by running `git --version` in the Terminal.
+  b. If you don't have Git installed, the easiest way to install it is via the standalone installer:
+      - Download the latest macOS Git installer from [Git's official website](https://git-scm.com/download/mac).
+      - Follow the on-screen instructions to complete the installation.
+  c. Alternatively, you can install Git using Homebrew (if installed):
+      - Run `brew install git` in the Terminal.
+
+- **Linux (Ubuntu/Debian)**:
+  a. Open the Terminal.
+  b. Update your package lists with `sudo apt update`.
+  c. Install Git by running `sudo apt install git`.
+  d. Verify the installation with `git --version`.
+
+3. **Virtual Environment Setup**: Ensure you have Python 3.8 or later installed on your system. Using a virtual environment is highly recommended to prevent conflicts with other Python projects or system-wide packages.
+
+## Recommendation: Using a Python Virtual Environment
+
+A Python virtual environment (venv) offers a self-contained directory within a project, encapsulating its own installation directories for software and packages. This isolation prevents conflicts between project dependencies and system-wide Python installations. It's highly recommended for projects like the Kumori CLI tool, where specific versions of libraries and dependencies are critical for functionality and stability. Below is a guide to setting up and managing a Python virtual environment for this project.
+
+### Setting Up a Virtual Environment
+
+a. **Installation**
+   - Ensure Python 3.8 or newer is installed on your system. The Python installation includes `venv` for creating virtual environments.
+   
+b. **Creating a Virtual Environment**
+   - Open a terminal (Command Prompt or PowerShell on Windows, Terminal on macOS and Linux).
+   - Navigate to the project directory:
+     ```bash
+     cd path/to/your/project
+     ```
+   - Create the virtual environment:
+     - **Windows**:
+       ```cmd
+       python -m venv kumori_venv
+       ```
+     - **macOS/Linux**:
+       ```bash
+       python3 -m venv kumori_venv
+       ```
+
+   `kumori_venv` is the name of your virtual environment, and you can rename it to anything you like.
+
+c. **Activating the Virtual Environment**
+   Before installing packages and running your project, you need to activate the virtual environment. Once activated, any Python or pip commands will use the versions in the virtual environment, not the global Python installation.
+   - **Windows**:
+     ```cmd
+     .\kumori_venv\Scripts\activate
+     ```
+   - **macOS/Linux**:
+     ```bash
+     source kumori_venv/bin/activate
+     ```
+
+   You'll know the virtual environment is activated because the command prompt will show the name of your virtual environment, e.g., `(kumori_venv) user@hostname:~/path/to/project$`.
+
+4. **Clone the Kumori CLI Project**: Now that you have a virutal env, Python, and Git installed, clone the project repository to your machine via [Kumori CLI Engine GitHub Page](https://github.com/tillo13/kumori_cli_engine.git) to have access to the functionality by running the following command in your terminal or command prompt:
+
+    ```
+    cd path\to\location\you\want
+    git clone https://github.com/tillo13/kumori_cli_engine.git
+    cd kumori_cli_engine
+    ```
+
+5. **Install Required Libraries**: 
+Once downloaded install the required libraries: 
+    ```
+    pip install -r kumori_cli_engine/requirements.txt -v
+    ```
+
+    This will ensure all necessary Python libraries, such as `diffusers`, `opencv-python`, `insightface`, `dlib`, and others, are installed in your environment.  It might take a few minutes, the -v tells it to show verbosely, but can take 5+ mins, be patient.
+
+6. **Install PyTorch**: The requirements.txt file installs a standard pytorch version, but if you have an NVIDIA card, you want your own version from [PyTorch.org](https://pytorch.org --it will show your install command on the page itself. If you installed or have it installed, you might need to uninstall a previous version first...
+
+```
+pip uninstall torch torchvision torchaudio
+```
+
+...as the requirements.txt file might install a version not compatible with your card.  Specifically UNINSTALL is needed, before proceeding with your CUDA verison. 
+
+While CUDA is not strictly necessary for running the tool, using a GPU can significantly accelerate the image generation process. Without a CUDA-enabled GPU, the generation process can be markedly slower—taking roughly 5-10 minutes per image based on standard inference steps and configurations in `configs.py`. For my setup with an NVIDIA RTX 3060, images are processed overnight, yielding a batch of outputs by the morning. To install PyTorch with CUDA support for an NVIDIA GPU, use the following command:
+
+Commands will differ slightly to incorporate CUDA support:
+
+    - For GPU-enabled systems (assuming CUDA is available), visit [PyTorch's Get Started page](https://pytorch.org/get-started/locally/) to select a command fitting your setup. An example for CUDA 11.8:
+
+    ```bash
+    pip install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu118
+    ```
+
+    - For systems without GPU support, a standard PyTorch installation suffices:
+
+    ```bash
+    pip install torch torchvision torchaudio
+    ```
+
+For my RTX3060, this is the command I get from pytorch.org on the homepage: 
+    ```
+    pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+    
+    ```
+    and it will show something like; 
+    ```
+    (kumori) PS D:\test> pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+    Looking in indexes: https://download.pytorch.org/whl/cu118
+    Collecting torch
+    ```
+
+    If you do not have a CUDA-enabled GPU, you can visit [PyTorch's official website](https://pytorch.org/get-started/locally/) to find the appropriate installation command for CPU-only support. Remember, the CUDA version (`cu118` in the command above) should match your system's CUDA installation if using GPU acceleration.
+
+7. **Additional files needed via Google Drive**: For facial detection and landmarks analysis and AntelopeV2, ensure you have the following models in your `facial_landmarks_model` and `model` directories in the root of the project (download from the PLACEHOLDER_ links in the repo as too big for Github).
+
+    - `deploy.prototxt.txt`
+    - `pose_deploy_linevec.prototxt`
+    - `res10_300x300_ssd_iter_140000.caffemodel`
+    - `shape_predictor_68_face_landmarks.dat`
+
+    These models are crucial for the `gender_detect.py` and `estimate_similar_faces.py` scripts to function correctly, allowing for accurate gender detection and pose estimation.
+
+8. ***Run it!***
+    ```
+    cd kumori_cli_engine
+    python ./kumori_cli.py
+    
+    ```
+If all goes as planned, you should start seeing values populating in the generated_images folder!
 
 ## Usage
-### APP.PY
-Most of the context aside from the Gradio integration stays in place from the [InstantID GitHub](https://github.com/InstantID/InstantID)
+### KUMORI_CLI.PY
 
-
-This `app.py` stands as the operational core of the project, seamlessly integrating the power of [InstantID](https://github.com/InstantID/InstantID) with Hugging Face's models to offer some versatility in CLI-based image generation. This script is the entry point for executing the generation process, embodying the fusion of advanced AI models with custom enhancements for an enriched user experience.
+This `kumori_cli.py` stands as the operational core of the project.  This script is the entry point for executing the generation process, embodying the fusion of advanced AI models with custom enhancements for an enriched user experience.  All configurations and updates you'll change up in CONFIGS.SYS
 
 ### CONFIGS.PY
 
-The `configs.py` script, serves as a crucial enhancement to the core functionality of the InstantID CLI image generation tool. This extension introduces advanced capabilities primarily focused on optimizing and customizing the input image set before they are processed by `app.py`. Leveraging the insights from facial analysis and pose estimation, it further streamlines the generation process to produce stylized and identity-preserved images en masse.
+The `configs.py` script, serves as a crucial enhancement to the core functionality of the InstantID CLI image generation tool. This extension introduces advanced capabilities primarily focused on optimizing and customizing the input image set before they are processed by `kumori_cli.py`. Leveraging the insights from facial analysis and pose estimation, it further streamlines the generation process to produce stylized and identity-preserved images en masse.
 
 #### Key Enhancement Functions:
 
@@ -138,13 +278,9 @@ Flexible Model and Style Selection: Users can select from a variety of pre-train
 
 Adjustable Parameters: Enables on-the-fly modification of generation parameters including but not limited to the strength of identity preservation, artistic style influence, and environmental context of the generated images.
 
-Batch Processing Capability: Uniquely designed to handle batch image processing, app.py supports processing multiple images consecutively, significantly speeding up the workflow for bulk image generation tasks.
+Batch Processing Capability: Uniquely designed to handle batch image processing, kumori_cli.py supports processing multiple images consecutively, significantly speeding up the workflow for bulk image generation tasks.
 
-### requirements.txt
-
-The `requirements.txt` file plays a pivotal role in the setup and execution of the Kumori CLI tool. It outlines all the necessary Python libraries and their specific versions required to run the application smoothly. By providing a comprehensive list, this file ensures that the environment setup is straightforward, allowing users to install all dependencies with a simple command. Moreover, it helps in maintaining consistency across different setups, ensuring that the tool performs as expected on any system.
-
-#### Libraries and Their Significance:
+#### More infos, libraries and their significance:
 
 - **`diffusers==0.25.0`**: Utilized for accessing and interacting with pre-trained diffusion models, crucial for generating high-quality images.
 
@@ -180,142 +316,10 @@ To fully harness the capabilities of `gender_detect.py` and `estimate_similar_fa
 - **Facial Landmarks Model for Pose Estimation**:
   - `estimate_similar_faces.py` requires a landmarks model (`shape_predictor_68_face_landmarks.dat`), typically stored within a `facial_landmarks_model` directory, to accurately determine facial features and estimate poses.
 
-### Installation Instructions
-
-Setting up the Kumori CLI tool requires a careful installation process to ensure all components work seamlessly together. Here’s a detailed guide to setting up your environment, whether you're leveraging GPU acceleration or opting for CPU-based processing.
-
-#### Prerequisites:
-
-1. **Python Environment**: Ensure you have Python 3.8 or later installed on your system. Using a virtual environment is highly recommended to prevent conflicts with other Python projects or system-wide packages.
-
-## Recommendation: Using a Python Virtual Environment
-
-A Python virtual environment (venv) offers a self-contained directory within a project, encapsulating its own installation directories for software and packages. This isolation prevents conflicts between project dependencies and system-wide Python installations. It's highly recommended for projects like the Kumori CLI tool, where specific versions of libraries and dependencies are critical for functionality and stability. Below is a guide to setting up and managing a Python virtual environment for this project.
-
-### Setting Up a Virtual Environment
-
-a. **Installation**
-   - Ensure Python 3.8 or newer is installed on your system. The Python installation includes `venv` for creating virtual environments.
-   
-b. **Creating a Virtual Environment**
-   - Open a terminal (Command Prompt or PowerShell on Windows, Terminal on macOS and Linux).
-   - Navigate to the project directory:
-     ```bash
-     cd path/to/your/project
-     ```
-   - Create the virtual environment:
-     - **Windows**:
-       ```cmd
-       python -m venv kumori_venv
-       ```
-     - **macOS/Linux**:
-       ```bash
-       python3 -m venv kumori_venv
-       ```
-
-   `kumori_venv` is the name of your virtual environment, and you can rename it to anything you like.
-
-c. **Activating the Virtual Environment**
-   Before installing packages and running your project, you need to activate the virtual environment. Once activated, any Python or pip commands will use the versions in the virtual environment, not the global Python installation.
-   - **Windows**:
-     ```cmd
-     .\kumori\Scripts\activate
-     ```
-   - **macOS/Linux**:
-     ```bash
-     source kumori/bin/activate
-     ```
-
-   You'll know the virtual environment is activated because the command prompt will show the name of your virtual environment, e.g., `(myvenv) user@hostname:~/path/to/project$`.
-
-2. **Download the InstantID Base Package**: Visit the [InstantID GitHub Page](https://github.com/InstantID/InstantID) and clone the repository or download the package to have access to the base functionality that this CLI tool extends.
-
-   - To access the essential functionalities required by this CLI tool, clone the InstantID repository directly from GitHub. This can be done using the following command in your terminal or command prompt:
-     ```
-     git clone https://github.com/InstantID/InstantID.git
-     ```
-   - This command clones the entire InstantID repository into a new directory on your local machine, ensuring you have all the necessary files and folders. Navigate into the cloned directory with:
-     ```
-     cd InstantID
-     ```
-   - From here, you can proceed with the setup instructions specific to the CLI tool, ensuring that any dependencies specific to InstantID are also installed or accessible within this directory.
-
-#### Installing Dependencies:
-
-3. **Install Required Libraries**: Navigate to the INstantID project directory and run their `requirements.txt` file in the ./gradio_demo folder located and run:
-
-    ```
-    pip install -r gradio_demo/requirements.txt
-    ```
-
-    This will ensure all necessary Python libraries, such as `diffusers`, `opencv-python`, `insightface`, `dlib`, and others, are installed in your environment.
-
-    On top of the libraries from instantid, run this to install the others needed: 
-    ```
-    pip install dlib
-    ```
-    
-    You also need to manually download via this URL (https://github.com/deepinsight/insightface/issues/1896#issuecomment-1023867304) to models/antelopev2 (it's a zip file just unzip it there) Once you have prepared all models, the folder tree should be like:
-
-  .
-  ├── models
-  ├── checkpoints
-  ├── ip_adapter
-  ├── pipeline_stable_diffusion_xl_instantid.py
-  └── README.md
-
-4. **Install PyTorch**: The requirements.txt file installs a standard pytorch version, but if you have an NVIDIA card, you want your own version from pytorch.org.  
-**IMPORTANT** 
-If you have an NVIDIA card, you might need to run: 
-```
-pip uninistall torch torchvision torchaudio
-```
-
-...as the requirements.txt file might install a version not compatible with your card.  Specifically UNINSTALL is needed, before proceeding with your CUDA verison. 
-
-While CUDA is not strictly necessary for running the tool, using a GPU can significantly accelerate the image generation process. Without a CUDA-enabled GPU, the generation process can be markedly slower—taking roughly 5-10 minutes per image based on standard inference steps and configurations in `configs.py`. For my setup with an NVIDIA RTX 3060, images are processed overnight, yielding a batch of outputs by the morning. To install PyTorch with CUDA support for an NVIDIA GPU, use the following command:
-
-Commands will differ slightly to incorporate CUDA support:
-
-    - For GPU-enabled systems (assuming CUDA is available), visit [PyTorch's Get Started page](https://pytorch.org/get-started/locally/) to select a command fitting your setup. An example for CUDA 11.8:
-
-    ```bash
-    pip install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu118
-    ```
-
-    - For systems without GPU support, a standard PyTorch installation suffices:
-
-    ```bash
-    pip install torch torchvision torchaudio
-    ```
-
-For my RTX3060, this is the command I get from pytorch.org on the homepage: 
-    ```
-    pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
-    
-    ```
-    and it will show something like; 
-    ```
-    (kumori) PS D:\test> pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
-    Looking in indexes: https://download.pytorch.org/whl/cu118
-    Collecting torch
-    ```
-
-    If you do not have a CUDA-enabled GPU, you can visit [PyTorch's official website](https://pytorch.org/get-started/locally/) to find the appropriate installation command for CPU-only support. Remember, the CUDA version (`cu118` in the command above) should match your system's CUDA installation if using GPU acceleration.
-
-5. **Facial Landmarks Model**: For facial detection and landmarks analysis, ensure you have the following models in your `facial_landmarks_model` directory:
-
-    - `deploy.prototxt.txt`
-    - `pose_deploy_linevec.prototxt`
-    - `res10_300x300_ssd_iter_140000.caffemodel`
-    - `shape_predictor_68_face_landmarks.dat`
-
-    These models are crucial for the `gender_detect.py` and `estimate_similar_faces.py` scripts to function correctly, allowing for accurate gender detection and pose estimation.
 
 ### SCREENSHOTS
 
-Poses to mimic: 
-![bluehair painting](./poses/female_painting_bluehair.webp)
+Example pose to mimic (male)
 ![deer king](./poses/male_king.jpeg)
 
 Outputs of Brad: 
@@ -323,6 +327,10 @@ Outputs of Brad:
 ![brad_out1](./screenshots/brad_out1.png)
 ![brad_out2](./screenshots/brad_out2.png)
 ![brad_out3](./screenshots/brad_out3.png)
+
+Example pose to mimic (female)
+
+![bluehair painting](./poses/female_painting_bluehair.webp)
 
 Outputs of Milly: 
 
