@@ -21,8 +21,8 @@ from estimate_similar_faces import main as compare_faces_main
 from shutil import move
 from os import path, makedirs
 
-#########PROMPTS DEFAULT MALE. IF FEMALE POPULATED WILL USE VIA GENDER_DETECT.PY, IF FEMALE BLANK, WILL DEFAULT TO PROMPT###################
-PROMPT="""
+#########FEMALE_PROMPT VS. MALE_PROMPt WILL BE DETERMINED VIA GENDER_DETECT.PY, IF FEMALE_PROMPT BLANK, WILL DEFAULT TO MALE_PROMPT###################
+MALE_PROMPT="""
 male noble, high fantasy art, imppressionist painting, brom, john howe, alan lee, hobbit art, luis royo, tern expression,  wearing golden stag antler crown, fur-lined cloak shades of white, greys, light brown, wolf pelt, robe over right shoulder, chest adorned with mystical medallions, holding wooden staff, rough finish, glowing orb top, curled grip
 """
 
@@ -295,7 +295,7 @@ def log_to_csv(logfile_path, image_name, new_file_name='Unknown', identitynet_st
         print("\n*******")
 ########LOG FILE LOGIC DONE############################
 
-########PROCESSING TO PASS TO APP.PY##############
+########PROCESSING TO PASS TO KUMORI_CLI_ENGINE.PY##############
 def list_image_files(input_folder):
     image_patterns = ['**/*.png', '**/*.jpg', '**/*.jpeg']  # Add **/ to search in subdirectories
     files = []
@@ -400,7 +400,7 @@ def initial_image(generate_image_func):
 
                 # Initialize variables
                 pose_image_path = None
-                CHOSEN_PROMPT = PROMPT
+                CHOSEN_PROMPT = MALE_PROMPT
 
                 # Variables for count(s)
                 active_anyone_poses = [pose for pose, is_active in GLOBAL_POSE_LIST.items() if is_active]
@@ -410,7 +410,7 @@ def initial_image(generate_image_func):
                 female_with_high_confidence_found = any(result['gender'].lower() == 'female' and result['gender_confidence'] * 100 > GLOBAL_FEMALE_POSE_PERC for result in detection_results)
 
                 if female_with_high_confidence_found:
-                    CHOSEN_PROMPT = FEMALE_PROMPT if FEMALE_PROMPT.strip() else PROMPT
+                    CHOSEN_PROMPT = FEMALE_PROMPT if FEMALE_PROMPT.strip() else MALE_PROMPT
                     if PRESET_POSE_ENABLED and active_female_poses:
                         selected_pose = random.choice(active_female_poses)
                         pose_image_path = [selected_pose]
@@ -435,8 +435,6 @@ def initial_image(generate_image_func):
                     pose_image_path = [selected_pose]
                     print(f"\n******\nRANDOM_POSE_ENABLED = True\nSelected Pose: {selected_pose} for ANYONE, out of {len(active_anyone_poses)} poses.")
 
-
-
                 print("================================================================================")
                 print(f"CONFIGS.PY: Finished setting prompt and pose for {basename}:")
                 print(f"PROMPT SELECTED: {CHOSEN_PROMPT}")
@@ -447,12 +445,10 @@ def initial_image(generate_image_func):
                 print("====CONFIGS.PY: POSE AND PROMPT SELECTION COMPLETE====")
 
 
-
-
                 if USE_RANDOM_STYLE:
                     style_name = choose_random_style()
                 else:
-                    #This is set as an if/then in app.py at around line 300 so must be None if not set by USE_RANDOM_STYLE
+                    #This is set as an if/then in KUMORI_CLI_ENGINE.PY at around line 300 so must be None if not set by USE_RANDOM_STYLE
                     style_name = None
                 
                 # Print out the chosen style here
@@ -484,7 +480,7 @@ def initial_image(generate_image_func):
                     selected_pose = choose_random_pose(GLOBAL_MALE_POSE_LIST)
                     pose_image_path = [selected_pose] if selected_pose else None
 
-                    CHOSEN_PROMPT = PROMPT  # Assuming PROMPT is the default male prompt
+                    CHOSEN_PROMPT = MALE_PROMPT 
                     print("Force-set gender to MALE based on filename; Prompt and pose updated.")
                     print(f"Updated CHOSEN_PROMPT for MALE: {CHOSEN_PROMPT}")
                     if selected_pose:
@@ -495,7 +491,6 @@ def initial_image(generate_image_func):
                     print("No explicit gender cue in filename; proceeding with detected gender above!")
                     if pose_image_path:
                         print(f"Previously selected POSE IMAGE PATH: {pose_image_path[0]}")
-                    print(f"Previously selected CHOSEN_PROMPT: {CHOSEN_PROMPT}")
 
                 # Last chance override or confirmation on PRESET POSE
                 if pose_image_path is not None and not PRESET_POSE_ENABLED:
@@ -503,26 +498,29 @@ def initial_image(generate_image_func):
                     pose_image_path = None
 
                 # Confirm right before usage
-                print("CONFIGS.PY: pose_image_path value BEFORE sending to APP.PY in override call:", pose_image_path)
+                print("CONFIGS.PY: pose_image_path value BEFORE sending to KUMORI_CLI_ENGINE.PY in override call:", pose_image_path)
                 
                 # New override: Default FEMALE_PROMPT to PROMPT if blank
                 if not FEMALE_PROMPT.strip():  # Checks if FEMALE_PROMPT is effectively empty
-                    CHOSEN_PROMPT = PROMPT
-                    print("FEMALE_PROMPT is blank, defaulting to PROMPT for CHOSEN_PROMPT.")
-
-                # Confirm CHOSEN_PROMPT right before usage
-                print("CONFIGS.PY: CHOSEN_PROMPT value BEFORE sending to APP.PY:", CHOSEN_PROMPT)
+                    CHOSEN_PROMPT = MALE_PROMPT
+                    print("FEMALE_PROMPT is blank, defaulting to MALE_PROMPT for CHOSEN_PROMPT.")
 
                 # Final override check for 'PRESET_POSE_ENABLED'
                 if not PRESET_POSE_ENABLED:
                     print("PRESET_POSE_ENABLED is False, setting pose_image_path to None.")
                     pose_image_path = None
 
+                # This ensures the prompt defaults to "a human" if both FEMALE_PROMPT and MALE_PROMPT are blank
+                if not FEMALE_PROMPT.strip() and not MALE_PROMPT.strip():
+                    CHOSEN_PROMPT = "a human"
+                    print("Both FEMALE_PROMPT and MALE_PROMPT are blank, defaulting CHOSEN_PROMPT to \"a human\".")
+                else:
+                    print(f"CONFIGS.PY: Success in finding gender, therfore CHOSEN_PROMPT sending into KUMORI_CLI_ENGINE.PY with: {CHOSEN_PROMPT}")
+
                 print("==========OVERRIDE CHECKER COMPLETE===============")
 
-                print(f"*****\nPROMPT RIGHT BEFORE passing to app.py: {CHOSEN_PROMPT}")
                 print(f"***LOOP {loop + 1} of {NUMBER_OF_LOOPS}: Processing image {image_number} of {total_images}***")
-                print(f"***Filename sending to APP.PY: {basename}")
+                print(f"***Filename sending to KUMORI_CLI_ENGINE.PY: {basename}")
                 print("================================================================================")
                 
                 try:
@@ -541,14 +539,14 @@ def initial_image(generate_image_func):
                         seed=seed
                     )
 
-                    print(f"Returned HuggingFace Random model from app.py: {used_huggingface_model}")
+                    print(f"Returned HuggingFace Random model from KUMORI_CLI_ENGINE.PY: {used_huggingface_model}")
 
                     HUGGINGFACE_MODEL = used_huggingface_model
 
                     # Print settings for the current image BEFORE processing it
                     print_generation_settings(basename, style_name, identitynet_strength_ratio, 
                                             adapter_strength_ratio, num_inference_steps, guidance_scale, seed,
-                                            image_number, total_images,HUGGINGFACE_MODEL)
+                                            image_number, total_images, HUGGINGFACE_MODEL, CHOSEN_PROMPT)
 
                 except Exception as gen_image_error:
                     print(f"Error during image generation for {face_image_path}: {gen_image_error}. Skipping to next image.")
@@ -667,7 +665,7 @@ def initial_image(generate_image_func):
     print(f"Overall total images processed: {NUMBER_OF_LOOPS * len(image_files)}") # Multiplied by the number of loops
     print(f"Overall total time: {total_elapsed_time / 60:.2f} minutes")
 
-########PROCESSING DONE TO PASS TO APP.PY##############
+########PROCESSING DONE TO PASS TO KUMORI_CLI_ENGINE.PY##############
 
 def add_padding_and_rename(original_image_path, padding_percent=25):
     """
@@ -720,7 +718,10 @@ def add_padding_and_rename(original_image_path, padding_percent=25):
             print(f"Error moving original image '{original_image_path}' to '{needed_padding_dir}': {e}")
 
 
-def print_generation_settings(basename, style_name, identitynet_strength_ratio, adapter_strength_ratio, num_inference_steps, guidance_scale, seed, image_number, total_images, HUGGINGFACE_MODEL):  
+# def print_generation_settings(basename, style_name, identitynet_strength_ratio, adapter_strength_ratio, num_inference_steps, guidance_scale, seed, image_number, total_images, HUGGINGFACE_MODEL):  
+
+def print_generation_settings(basename, style_name, identitynet_strength_ratio, adapter_strength_ratio, num_inference_steps, guidance_scale, seed, image_number, total_images, HUGGINGFACE_MODEL, CHOSEN_PROMPT):
+
 
     print("===IMAGE GENERATION DATA SUMMARY===")    
     # Existing print statements follow
@@ -735,7 +736,7 @@ def print_generation_settings(basename, style_name, identitynet_strength_ratio, 
           f"- Seed: {seed}\n"
           f"- Input folder name: {INPUT_FOLDER_NAME}\n"
           f"- Output folder name: {OUTPUT_FOLDER_NAME}\n"
-          f"- Prompt: {PROMPT}\n"
+          f"- Prompt: {CHOSEN_PROMPT}\n"
           f"- Negative prompt: {NEGATIVE_PROMPT}\n"
           f"- Number of loops: {NUMBER_OF_LOOPS}\n"
           f"- HuggingFace Model: {HUGGINGFACE_MODEL}\n")
