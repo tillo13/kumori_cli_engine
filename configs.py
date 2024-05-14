@@ -67,13 +67,11 @@ GLOBAL_POSE_LIST = {
 GLOBAL_MALE_POSE_LIST = {
     "poses/male_jedi1.webp": False,
     "poses/male_king.jpeg": True,
-    "poses/female_painting_bluehair.webp": True,
 }
 
 GLOBAL_FEMALE_POSE_LIST = {
     "poses/female_painting_bluehair.webp": True,
     "poses/female_superhero2.webp": False,
-    "poses/male_king.jpeg": True,
 }
 
 #This sets the overall perc that you're comfortable assuming a gender_detect.py result will assign the value.  I've seen so far that it's pretty good at detecting, so this is more a failsafe in case it worth lowering to be sure.

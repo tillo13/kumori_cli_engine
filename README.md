@@ -159,6 +159,8 @@ For my RTX3060, this is the command I get from pytorch.org on the homepage:
 
     These models are crucial for the `gender_detect.py` and `estimate_similar_faces.py` scripts to function correctly, allowing for accurate gender detection and pose estimation.
 
+  At the end you should have 2 folders called `kumori_cli_engine/models` and `kumori_cli_engine/facial_landmakr_model` after downloading the files.
+
 8. ***Run it!***
     ```
     cd kumori_cli_engine
@@ -174,7 +176,7 @@ This `kumori_cli.py` stands as the operational core of the project.  This script
 
 ### CONFIGS.PY
 
-The `configs.py` script, serves as a crucial enhancement to the core functionality of the InstantID CLI image generation tool. This extension introduces advanced capabilities primarily focused on optimizing and customizing the input image set before they are processed by `kumori_cli.py`. Leveraging the insights from facial analysis and pose estimation, it further streamlines the generation process to produce stylized and identity-preserved images en masse.
+The `configs.py` script, serves as a catch-all to make setting changes --it's got all your fun settings, to the core functionality of the Kumori CLI Engine image generation tool. This extension introduces advanced capabilities primarily focused on optimizing and customizing the input image set before they are processed by `kumori_cli.py`. Leveraging the insights from facial analysis and pose estimation, it further streamlines the generation process to produce stylized and identity-preserved images en masse.
 
 #### Key Enhancement Functions:
 
@@ -228,7 +230,7 @@ In essence, the `generation_log.csv` not only serves as a vital record-keeping t
 
 `gender_detect.py` significantly enhances the CLI-based image generation process by introducing robust gender and age detection capabilities. This module empowers the generation tool with the ability to automatically adjust image generation parameters based on the detected gender and age of the subjects within the input images. This facilitates a deeper level of personalization and relevance in the generated artwork, harmoniously aligning with the overall vision of creating highly customized and identity-preserving images for both male and female prompts in the same automation.
 
-#### Integration with Configs.py
+#### gender_detect.py integration with Configs.py
 
 - **Seamless Workflow Integration:** The gender and age data extracted by `gender_detect.py` are pivotal in `configs.py` for deciding on appropriate prompts and styles. Based on the demographic attributes of the subjects in the input images, `configs.py` can dynamically adjust its configurations to match, enhancing the relevancy and precision of the generated images.
 
@@ -252,7 +254,7 @@ In summary, `gender_detect.py` stands as a cornerstone module that significantly
 
 The `estimate_similar_faces.py` script enriches the CLI-based image generation project by incorporating an advanced pose estimation functionality. This module is specifically designed to analyze input images for facial landmarks, estimating poses that closely match those from a predefined repository or dynamically identified styles. This tailored approach significantly refines the preparatory phase of the image generation process, executed by `configs.py`, ensuring that generated images bear a striking resemblance to the source images not only in style but also in posture and expressiveness.
 
-#### Integration with configs.py
+#### estimate_similar_faces.py integration with configs.py
 
 - **Enhanced Pose Alignment:** By accurately estimating the facial pose of subjects in input images, `estimate_similar_faces.py` allows `configs.py` to select or adjust prompts and styles that harmonize with the subject's pose. This critical integration ensures that the generative models are primed with contextually cohesive inputs, enhancing the naturalness and authenticity of the generated images.
 
@@ -317,7 +319,7 @@ To fully harness the capabilities of `gender_detect.py` and `estimate_similar_fa
   - `estimate_similar_faces.py` requires a landmarks model (`shape_predictor_68_face_landmarks.dat`), typically stored within a `facial_landmarks_model` directory, to accurately determine facial features and estimate poses.
 
 
-### SCREENSHOTS
+### SCREENSHOT EXAMPLES
 
 Example pose to mimic (male)
 ![deer king](./poses/male_king.jpeg)
