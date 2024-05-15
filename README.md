@@ -392,6 +392,47 @@ To fully harness the capabilities of `gender_detect.py` and `estimate_similar_fa
 ![process3](./screenshots/process3.png)
 ![process4](./screenshots/process4.png)
 
-### Questions/contact: 
+
+
+## FUTURE THOUGHTS/NEXT STEPS
+Looking ahead, there are several exciting avenues I've kicked around for enhancing the Kumori CLI Engine. Mostly thoughts around building upon the existing infrastructure, enabling more refined outputs, greater interactivity, and expanded functionality.  Hit me up if any are interesting/want to collaborate: 
+
+### More HF Models 
+- **Description**: Incorporate more HuggingFace models to expand the range of styles, themes, and generation capabilities. This will empower users with a broader set of tools and creative options.
+- **Implementation**: Regularly update the `configs.py` with new model entries and ensure compatibility with existing preprocessing and generation workflows.
+
+### Proactive Facial Detection to Find Poses
+- **Description**: Implement proactive facial detection to automatically suggest poses for the user. This feature can analyze input images and recommend optimal poses to achieve the best image generation results.
+- **Implementation**: Enhance the `estimate_similar_faces.py` to not only estimate but also rank and suggest poses based on facial landmarks analysis.
+
+### Better Post-Enhancing
+- **Description**: Develop advanced post-processing algorithms to enhance the generated images further. Techniques may include sharpening, color correction, and noise reduction.
+- **Implementation**: Integrate libraries like `Pillow` and `OpenCV` to apply a series of enhancements after the initial generation, driven by user-configurable settings in `configs.py`.
+
+### Learning User Preferences in Successive Runs
+- **Description**: Update the `summarize_and_merge_generation_log.py` to automatically set values for successive runs based on previous user preferences and successful outcomes.
+- **Implementation**: Implement a feedback mechanism that analyzes the `generation_log.csv` and adjusts the parameters dynamically for future generations, learning user preferences over time.
+
+### Suggested Best Settings After Multiple Runs
+- **Description**: After a certain number of runs, provide users with suggested best settings based on analysis of previous outputs. This helps users quickly identify optimal configurations for their needs.
+- **Implementation**: Include an analytical module in `summarize_and_merge_generation_log.py` that suggests the best settings after aggregating data from multiple runs.
+
+### Notifications of Progress
+- **Description**: Implement a notification system to update users on the progress of their image generation tasks via email, Slack, or text.
+- **Implementation**: Utilize libraries like `smtplib` for email, `slack_sdk` for Slack, and `twilio` for text messages to send progress notifications during and after the generation process.
+
+### Model Performance Metrics
+- **Description**: Track and display detailed performance metrics of different models, helping users understand the trade-offs between speed and quality for various settings.
+- **Implementation**: Modify `generation_log.csv` to include metrics such as generation time, GPU/CPU usage, and quality scores. Summarize these metrics in `summarize_and_merge_generation_log.py`.
+
+### Facial Attribute Manipulation
+- **Description**: Allow users to manipulate specific facial attributes such as expressions or age while preserving identity. This adds a layer of personalization and creativity.
+- **Implementation**: Integrate with facial attribute GANs to enable controlled modifications of facial features. Include corresponding commands in `configs.py`.
+
+### Backup and Restore Settings
+- **Description**: Provide functionality to backup and restore user settings and configurations. This ensures users can easily revert to previous setups or transfer configurations between different environments.
+- **Implementation**: Create backup and restore commands in the CLI that save and load settings from a specified file, ensuring portability and ease of configuration management.
+
+## Questions/contact/collabs: 
 
 https://www.linkedin.com/in/andytillo/
