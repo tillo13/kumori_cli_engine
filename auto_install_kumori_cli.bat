@@ -10,7 +10,7 @@ for /f "tokens=1-4 delims=:.," %%a in ('echo %time%') do (
 )
 
 echo ======================================================
-echo Setting up the Kumori CLI environment...
+echo Setting up the Kumori CLI Engine environment...
 echo ======================================================
 echo.
 echo Starting script @: %time% 
@@ -222,10 +222,10 @@ echo All necessary files have been downloaded and extracted.
 echo The correct version of PyTorch must be ensured for your specific GPU.
 echo.
 
-echo Please follow these steps to start using Kumori CLI:
+echo Please follow these steps to start using Kumori CLI Engine:
 echo 1. Activate the virtual environment with: .\kumori_venv\Scripts\activate
 echo 2. Navigate to the kumori_cli_engine directory: cd kumori_cli_engine
-echo 3. Run the Kumori CLI: python .\kumori_cli.py
+echo 3. Run the Kumori CLI Engine: python .\kumori_cli.py
 echo.
 
 echo NOTE: Now you're ready to roll!  Re-running this will remove/re-install from scratch if you have troubles.
