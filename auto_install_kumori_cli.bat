@@ -31,7 +31,7 @@ python --version
 if %errorlevel% neq 0 (
     echo ERROR: Python is not installed or not in the PATH. Please install Python 3.8 or newer.
     pause
-    exit /b
+    goto :end
 )
 echo.
 
@@ -51,7 +51,7 @@ if %errorlevel% neq 0 (
     echo.
     echo After installing Git, please run this script again.
     pause
-    exit /b
+    goto :end
 )
 echo Git is installed.
 echo.
@@ -65,7 +65,7 @@ if exist kumori_venv (
     if %errorlevel% neq 0 (
         echo ERROR: Failed to delete kumori_venv directory.
         pause
-        exit /b
+        goto :end
     )
 )
 if exist kumori_cli_engine (
@@ -74,7 +74,7 @@ if exist kumori_cli_engine (
     if %errorlevel% neq 0 (
         echo ERROR: Failed to delete kumori_cli_engine directory.
         pause
-        exit /b
+        goto :end
     )
 )
 echo Existing directories cleaned up.
@@ -87,7 +87,7 @@ python -m venv kumori_venv
 if %errorlevel% neq 0 (
     echo ERROR: Failed to create Python virtual environment.
     pause
-    exit /b
+    goto :end
 )
 echo.
 
@@ -98,7 +98,7 @@ call .\kumori_venv\Scripts\activate
 if %errorlevel% neq 0 (
     echo ERROR: Failed to activate the virtual environment.
     pause
-    exit /b
+    goto :end
 )
 echo Virtual environment 'kumori_venv' activated.
 echo.
@@ -110,7 +110,7 @@ pip install gdown
 if %errorlevel% neq 0 (
     echo ERROR: Failed to install gdown package.
     pause
-    exit /b
+    goto :end
 )
 echo gdown package installed successfully.
 echo.
@@ -122,7 +122,7 @@ git clone https://github.com/tillo13/kumori_cli_engine.git
 if %errorlevel% neq 0 (
     echo ERROR: Failed to clone the Kumori CLI Engine repository.
     pause
-    exit /b
+    goto :end
 )
 cd kumori_cli_engine
 echo Repository cloned and navigated to 'kumori_cli_engine' directory.
@@ -135,7 +135,7 @@ pip install -r requirements.txt -v
 if %errorlevel% neq 0 (
     echo ERROR: Failed to install dependencies.
     pause
-    exit /b
+    goto :end
 )
 echo.
 
@@ -146,7 +146,7 @@ pip uninstall torch torchvision torchaudio -y
 if %errorlevel% neq 0 (
     echo ERROR: Failed to uninstall existing PyTorch packages.
     pause
-    exit /b
+    goto :end
 )
 echo.
 
@@ -157,7 +157,7 @@ pip install torch torchvision torchaudio --extra-index-url https://download.pyto
 if %errorlevel% neq 0 (
     echo ERROR: Failed to install PyTorch with CUDA support.
     pause
-    exit /b
+    goto :end
 )
 echo.
 
@@ -187,7 +187,7 @@ if %errorlevel% neq 0 (
     echo ERROR: Failed to download and extract the files.
     del temp_download_and_extract.py
     pause
-    exit /b
+    goto :end
 )
 echo The additional files have been downloaded and extracted successfully.
 echo.
@@ -255,5 +255,6 @@ echo Check out the configs.py file to make changes to your personal preferences!
 echo Additionally, for more information, refer to the README.md file located here: https://github.com/tillo13/kumori_cli_engine/blob/main/README.md
 echo.
 
-pause
+:end
 endlocal
+cmd /k
