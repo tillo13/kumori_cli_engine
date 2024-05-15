@@ -37,7 +37,7 @@ For Windows users, there's an automated batch script `auto_install_kumori_cli.ba
 ```
 ./auto_install_kumori_cli.bat
 ```
-- Follow the on-screen instructions. The script will:
+Follow the on-screen instructions. The script will:
 
 - Check for Python installation.
 - Create and activate a Python virtual environment.
@@ -47,6 +47,13 @@ For Windows users, there's an automated batch script `auto_install_kumori_cli.ba
 - Download and extract additional files for facial detection and analysis.
 
 _NOTE for Non-Windows Users:_ While this script is designed for Windows, you can refer to it for the required steps and adapt the commands for macOS or Linux environments.
+
+Then follow these steps to start using Kumori CLI Engine:
+1. Activate the virtual environment with: `.\kumori_venv\Scripts\activate`
+2. Navigate to the kumori_cli_engine directory: `cd kumori_cli_engine`
+3. Run the Kumori CLI Engine: `python .\kumori_cli.py`
+4. See the images you've created in the `generated_images` folder!
+
 
 ### Manual Installation Instructions (for all OS)
 
