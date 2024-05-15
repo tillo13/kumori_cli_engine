@@ -27,16 +27,16 @@ This project, therefore, extends the original brilliance of InstantID into a rea
 This guide provides both an automated setup script for Windows users and detailed manual installation instructions.
 
 ### Windows Users: Automated Setup Script (Easiest path to getting started)
-
-For Windows users, there's an automated batch script `auto_install_kumori_cli.bat` available in the root of the project directory. This script handles the complete setup process, including environment setup, repository cloning, dependency installation, and more.
+For Windows users, there's an automated batch script [`auto_install_kumori_cli.bat`](https://github.com/tillo13/kumori_cli_engine/blob/main/auto_install_kumori_cli.bat) available in the root of the project directory. This script handles the complete setup process, including environment setup, repository cloning, dependency installation, and more.
 
 **To Use the Automated Script:**
 
-- Double-click the `auto_install_kumori_cli.bat` file or run it using the command line:
+- Double-click the [`auto_install_kumori_cli.bat`](https://github.com/tillo13/kumori_cli_engine/blob/main/auto_install_kumori_cli.bat) file or run it using the command line:
 
 ```
 ./auto_install_kumori_cli.bat
 ```
+
 Follow the on-screen instructions. The script will:
 
 - Check for Python installation.
