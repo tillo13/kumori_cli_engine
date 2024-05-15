@@ -174,12 +174,10 @@ For those who prefer or need to install everything manually, here are detailed s
  For facial detection and landmarks analysis and AntelopeV2, ensure you have the following models in your `facial_landmarks_model` and `model` directories in the root of the project. Download them from this [Google Drive link](https://drive.google.com/file/d/1jdfyvxHMvAN7OJMW3zGn0IZZ107OxmqN/view?usp=sharing) as they are too large for GitHub.
 
  - Download and unzip the following files into the `kumori_cli_engine` directory:
-   - `deploy.prototxt.txt`
-   - `pose_deploy_linevec.prototxt`
-   - `res10_300x300_ssd_iter_140000.caffemodel`
-   - `shape_predictor_68_face_landmarks.dat`
+   - `/models`
+   - `/facial_landmark_model`
 
- - These models are crucial for the `gender_detect.py` and `estimate_similar_faces.py` scripts to function correctly, allowing for accurate gender detection and pose estimation.
+ - These folders are crucial for the `gender_detect.py` and `estimate_similar_faces.py` scripts to function correctly, allowing for accurate gender detection and pose estimation.
 
  At the end, you should have two folders: `kumori_cli_engine/models` and `kumori_cli_engine/facial_landmarks_model`.
 
@@ -193,7 +191,7 @@ For those who prefer or need to install everything manually, here are detailed s
 
 Tada! Now enjoy using the Kumori CLI Engine to create amazing images!
 
-## Usage
+## Usage and mnore intel about the files themselves
 ### KUMORI_CLI.PY
 
 This `kumori_cli.py` stands as the operational core of the project.  This script is the entry point for executing the generation process, embodying the fusion of advanced AI models with custom enhancements for an enriched user experience.  All configurations and updates you'll change up in CONFIGS.SYS
