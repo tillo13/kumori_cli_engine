@@ -151,7 +151,7 @@ if %errorlevel% neq 0 (
 echo.
 
 echo ------------------------------------------------------
-echo Step 10: Installing PyTorch with CUDA support for RTX 3060... This may take a minute or two...
+echo Step 10: Installing PyTorch with CUDA 11.8 support for RTX30xx models... This may take a minute or two...
 echo ------------------------------------------------------
 pip install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu118
 if %errorlevel% neq 0 (

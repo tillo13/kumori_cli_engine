@@ -1,4 +1,4 @@
-# Kumori CLI Python automation using InstantID and HuggingFace/Diffusers
+# Kumori CLI Engine: A Python automation using InstantID and HuggingFace/Diffusers
 ![process layout image](./screenshots/kumori_cli_main.png)
 
 ### Key Features
