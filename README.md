@@ -13,7 +13,7 @@
 ## Introduction
 As far as the name, Kumori (ku-mo-ri / 曇り) means 'cloudy' in Japanese. So this is a bit of play on the word where instead of grey and gloom of clouds, it's been said to embody the sunshine and positivity that comes after the clouds and rain!
 
-Kumori is rooted strongly in the InstantID [InstantID GitHub](https://github.com/InstantID/InstantID) code as they have an excellent, tuning-free approach to identity-preserving generation, allowing for the swift creation of stylized portraits with a singular input image. The original InstantID implementation, leverages state-of-the-art AI to achieve remarkable fidelity in generated images, supporting a wide range of artistic renditions while preserving the unique identities captured in source images.
+Kumori CLI Engine is rooted strongly in the InstantID [InstantID GitHub](https://github.com/InstantID/InstantID) code as they have an excellent, tuning-free approach to identity-preserving generation, allowing for the swift creation of stylized portraits with a singular input image. The original InstantID implementation, leverages state-of-the-art AI to achieve remarkable fidelity in generated images, supporting a wide range of artistic renditions while preserving the unique identities captured in source images.
 
 InstantID is accessible through user-friendly interfaces like Gradio, facilitating easy experimentation for users without deep technical expertise in command-line tools or programming. While this approach demystifies AI's complexities, it often caters to one-off generation tasks rather than batch processing or integrated workflows that many developers and researchers may require, I wanted to be able to "set it and forget it" to generated images.
 
