@@ -1,21 +1,28 @@
 @echo off
-setlocal
+setlocal enabledelayedexpansion
 
 :: Get start timestamp
-for /f %%i in ('powershell -command "Get-Date -Format HH:mm:ss"') do set start_time=%%i
+for /f "tokens=1-4 delims=:.," %%a in ('echo %time%') do (
+    set start_h=%%a
+    set start_m=%%b
+    set start_s=%%c
+    set start_ms=%%d
+)
 
 echo ======================================================
 echo Setting up the Kumori CLI environment...
 echo ======================================================
 echo.
-echo Starting script @: %start_time%
+echo Starting script @: %time% 
+echo FYI: This script could take 5-10 mins to complete, based on your system specs, but worry not, should be verbose...
 echo.
 
 :: Get initial free space using PowerShell
 echo ------------------------------------------------------
-echo Initial Disk Space Available:
+echo Initial Disk Space Available (in GB):
 echo ------------------------------------------------------
-powershell -command "Get-PSDrive -PSProvider FileSystem | Where-Object { $_.Name -eq 'C' } | Select-Object Used, Free"
+powershell -command "Get-PSDrive -PSProvider FileSystem | Where-Object { $_.Name -eq 'C' } | Select-Object @{Name='Used (GB)'; Expression={[math]::Round($_.Used/1GB, 2)}}, @{Name='Free (GB)'; Expression={[math]::Round($_.Free/1GB, 2)}}"
+echo.
 
 echo ------------------------------------------------------
 echo Step 1: Checking for Python installation...
@@ -168,21 +175,34 @@ echo.
 del temp_download_and_extract.py
 
 :: Get end timestamp
-for /f %%i in ('powershell -command "Get-Date -Format HH:mm:ss"') do set end_time=%%i
+for /f "tokens=1-4 delims=:.," %%a in ('echo %time%') do (
+    set end_h=%%a
+    set end_m=%%b
+    set end_s=%%c
+    set end_ms=%%d
+)
 
-:: Calculate time difference
-for /f %%i in ('powershell -command "$start=[datetime]::Parse(''%start_time%''); $end=[datetime]::Parse(''%end_time%''); $diff=$end-$start; $diff.ToString(''hh\:mm\:ss'')"') do set time_diff=%%i
+:: Calculate elapsed time
+set /a start_total_ms=start_h*3600000 + start_m*60000 + start_s*1000 + start_ms
+set /a end_total_ms=end_h*3600000 + end_m*60000 + end_s*1000 + end_ms
+set /a elapsed_ms=end_total_ms - start_total_ms
+
+:: Convert elapsed time to human-readable format
+set /a elapsed_s=elapsed_ms / 1000
+set /a elapsed_ms=elapsed_ms %% 1000
+set /a elapsed_m=elapsed_s / 60
+set /a elapsed_s=elapsed_s %% 60
+set /a elapsed_h=elapsed_m / 60
+set /a elapsed_m=elapsed_m %% 60
 
 echo.
-:: Get final free space using PowerShell
+echo Time to install: %elapsed_h% hours, %elapsed_m% minutes, %elapsed_s% seconds, %elapsed_ms% milliseconds
+
+echo.
 echo ------------------------------------------------------
-echo Final Disk Space Available:
+echo Final Disk Space Available (in GB):
 echo ------------------------------------------------------
-powershell -command "Get-PSDrive -PSProvider FileSystem | Where-Object { $_.Name -eq 'C' } | Select-Object Used, Free"
-
-echo.
-echo Time to install: %time_diff% (hh:mm:ss)
-echo.
+powershell -command "Get-PSDrive -PSProvider FileSystem | Where-Object { $_.Name -eq 'C' } | Select-Object @{Name='Used (GB)'; Expression={[math]::Round($_.Used/1GB, 2)}}, @{Name='Free (GB)'; Expression={[math]::Round($_.Free/1GB, 2)}}"
 
 echo ------------------------------------------------------
 echo IMPORTANT: Custom PyTorch Installation for Different GPUs
