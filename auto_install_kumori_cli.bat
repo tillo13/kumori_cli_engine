@@ -36,7 +36,28 @@ if %errorlevel% neq 0 (
 echo.
 
 echo ------------------------------------------------------
-echo Step 2: Checking and cleaning up existing directories...
+echo Step 2: Checking for Git installation...
+echo ------------------------------------------------------
+git --version
+if %errorlevel% neq 0 (
+    echo ERROR: Git is not installed or not in the PATH.
+    echo Git is essential for cloning the project repository to your local machine.
+    echo If you do not have Git installed, please follow these instructions to install it:
+    echo.
+    echo Installing Git:
+    echo   1. Download the latest Git for Windows installer from Git's official website: https://git-scm.com/download/win
+    echo   2. You can also download it directly from this link: https://github.com/git-for-windows/git/releases/download/v2.45.1.windows.1/Git-2.45.1-32-bit.exe
+    echo   3. Run the installer and follow the installation prompts. Accepting the default options is recommended for most users.
+    echo.
+    echo After installing Git, please run this script again.
+    pause
+    exit /b
+)
+echo Git is installed.
+echo.
+
+echo ------------------------------------------------------
+echo Step 3: Checking and cleaning up existing directories...
 echo ------------------------------------------------------
 if exist kumori_venv (
     echo Deleting existing kumori_venv directory...
@@ -60,7 +81,7 @@ echo Existing directories cleaned up.
 echo.
 
 echo ------------------------------------------------------
-echo Step 3: Creating Python virtual environment...
+echo Step 4: Creating Python virtual environment...
 echo ------------------------------------------------------
 python -m venv kumori_venv
 if %errorlevel% neq 0 (
@@ -71,7 +92,7 @@ if %errorlevel% neq 0 (
 echo.
 
 echo ------------------------------------------------------
-echo Step 4: Activating the virtual environment...
+echo Step 5: Activating the virtual environment...
 echo ------------------------------------------------------
 call .\kumori_venv\Scripts\activate
 if %errorlevel% neq 0 (
@@ -83,7 +104,7 @@ echo Virtual environment 'kumori_venv' activated.
 echo.
 
 echo ------------------------------------------------------
-echo Step 5: Installing gdown package and other dependencies...
+echo Step 6: Installing gdown package and other dependencies...
 echo ------------------------------------------------------
 pip install gdown
 if %errorlevel% neq 0 (
@@ -95,7 +116,7 @@ echo gdown package installed successfully.
 echo.
 
 echo ------------------------------------------------------
-echo Step 6: Cloning Kumori CLI Engine repository...
+echo Step 7: Cloning Kumori CLI Engine repository...
 echo ------------------------------------------------------
 git clone https://github.com/tillo13/kumori_cli_engine.git
 if %errorlevel% neq 0 (
@@ -108,7 +129,7 @@ echo Repository cloned and navigated to 'kumori_cli_engine' directory.
 echo.
 
 echo ------------------------------------------------------
-echo Step 7: Installing dependencies from requirements.txt... This may take a minute or two...
+echo Step 8: Installing dependencies from requirements.txt... This may take a minute or two...
 echo ------------------------------------------------------
 pip install -r requirements.txt -v
 if %errorlevel% neq 0 (
@@ -119,7 +140,7 @@ if %errorlevel% neq 0 (
 echo.
 
 echo ------------------------------------------------------
-echo Step 8: Uninstalling existing PyTorch packages...
+echo Step 9: Uninstalling existing PyTorch packages...
 echo ------------------------------------------------------
 pip uninstall torch torchvision torchaudio -y
 if %errorlevel% neq 0 (
@@ -130,7 +151,7 @@ if %errorlevel% neq 0 (
 echo.
 
 echo ------------------------------------------------------
-echo Step 9: Installing PyTorch with CUDA support for RTX 3060... This may take a minute or two...
+echo Step 10: Installing PyTorch with CUDA support for RTX 3060... This may take a minute or two...
 echo ------------------------------------------------------
 pip install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu118
 if %errorlevel% neq 0 (
@@ -141,7 +162,7 @@ if %errorlevel% neq 0 (
 echo.
 
 echo ------------------------------------------------------
-echo Step 10: Downloading and extracting models_and_facial_landmarks_model.zip...
+echo Step 11: Downloading and extracting models_and_facial_landmarks_model.zip...
 echo ------------------------------------------------------
 
 :: Create the temporary Python script to download and extract the ZIP file
