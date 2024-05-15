@@ -247,6 +247,7 @@ echo Please follow these steps to start using Kumori CLI Engine:
 echo 1. Activate the virtual environment with: .\kumori_venv\Scripts\activate
 echo 2. Navigate to the kumori_cli_engine directory: cd kumori_cli_engine
 echo 3. Run the Kumori CLI Engine: python .\kumori_cli.py
+echo 4. See the images you've created in the generated_images folder!
 echo.
 
 echo NOTE: Now you're ready to roll!  Re-running this will remove/re-install from scratch if you have troubles.
