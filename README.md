@@ -11,14 +11,16 @@
 
 
 ## Introduction
-InstantID  [InstantID GitHub](https://github.com/InstantID/InstantID) has an excellent, tuning-free approach to identity-preserving generation, allowing for the swift creation of stylized portraits with a singular input image. The original InstantID implementation, leverages state-of-the-art AI to achieve remarkable fidelity in generated images, supporting a wide range of artistic renditions while preserving the unique identities captured in source images.
+As far as the name, Kumori (ku-mo-ri / 曇り) means 'cloudy' in Japanese. So this is a bit of play on the word where instead of grey and gloom of clouds, it's been said to embody the sunshine and positivity that comes after the clouds and rain!
+
+Kumori is rooted strongly in the InstantID [InstantID GitHub](https://github.com/InstantID/InstantID) code as they have an excellent, tuning-free approach to identity-preserving generation, allowing for the swift creation of stylized portraits with a singular input image. The original InstantID implementation, leverages state-of-the-art AI to achieve remarkable fidelity in generated images, supporting a wide range of artistic renditions while preserving the unique identities captured in source images.
 
 InstantID is accessible through user-friendly interfaces like Gradio, facilitating easy experimentation for users without deep technical expertise in command-line tools or programming. While this approach demystifies AI's complexities, it often caters to one-off generation tasks rather than batch processing or integrated workflows that many developers and researchers may require, I wanted to be able to "set it and forget it" to generated images.
 
 Since its realized I have been testing a way to automate InstantID in conjunction with various working HuggingFace models to offer a more versatile and automation-friendly solution. This approach is designed for those seeking deeper customization, speed in batch image processing, and a more scriptable interaction with InstantID's capabilities, bypassing the GUI constraints for increased flexibility and efficiency.
 
 ## Why a CLI-based Approach?
-The motivation behind developing a CLI-based interface for InstantID interaction stems mostly from the fact that I have an RTX3060, and waiting for an image to just try another bunch of settings was too time consuming, and would rather create several, and decide for myself what felt best, based on some of the ideal settings at differing strengths --it's worked out pretty good so far, so thought I'd share.
+The motivation behind developing a CLI-based interface for InstantID interaction stems mostly from the fact that I have an RTX3060, which works alright, but leaves a bit to be desired on wait times to produce.  And waiting for an image to just try another bunch of settings was too time consuming, and would rather create several, and decide for myself what felt best, based on some of the ideal settings at differing strengths --it's worked out pretty good so far, so thought I'd share.
 
 This project, therefore, extends the original brilliance of InstantID into a realm where developers and researchers can harness its capabilities in a more flexible, efficient, and programmable manner, opening new avenues for creative and analytical tasks without relying on graphical interfaces.
 
@@ -191,14 +193,14 @@ For those who prefer or need to install everything manually, here are detailed s
 
 Tada! Now enjoy using the Kumori CLI Engine to create amazing images!
 
-## Usage and mnore intel about the files themselves
+## Usage and more info about the files themselves...
 ### KUMORI_CLI.PY
 
-This `kumori_cli.py` stands as the operational core of the project.  This script is the entry point for executing the generation process, embodying the fusion of advanced AI models with custom enhancements for an enriched user experience.  All configurations and updates you'll change up in CONFIGS.SYS
+This `kumori_cli.py` stands as the operational core of the project based on the app.py file from InstantID (minus Gradio UI).  This script is the entry point for executing the generation process, embodying the fusion of advanced AI models with custom enhancements for an enriched user experience.  All configurations and updates you'll change up in CONFIGS.SYS
 
 ### CONFIGS.PY
 
-The `configs.py` script, serves as a catch-all to make setting changes --it's got all your fun settings, to the core functionality of the Kumori CLI Engine image generation tool. This extension introduces advanced capabilities primarily focused on optimizing and customizing the input image set before they are processed by `kumori_cli.py`. Leveraging the insights from facial analysis and pose estimation, it further streamlines the generation process to produce stylized and identity-preserved images en masse.
+The `configs.py` script, serves as a catch-all to make setting changes --it's got all your fun settings, to the core functionality of the Kumori CLI Engine. This extension introduces advanced capabilities primarily focused on optimizing and customizing the input image set before they are processed by `kumori_cli.py`. Leveraging the insights from facial analysis and pose estimation, it further streamlines the generation process to produce stylized and identity-preserved images en masse and is kinda the central-nervous-system of the configurations that you prefer.
 
 #### Key Enhancement Functions:
 
@@ -214,11 +216,11 @@ The `configs.py` script, serves as a catch-all to make setting changes --it's go
 
 #### Working Principle:
 
-At its essence, `configs.py` acts as the intermediary between raw input data and the generative AI models. By preprocessing images — adjusting dimensions, applying filters, or selecting poses — and specifying generation parameters, it enriches the input data to better suit the model's needs and user expectations. This preprocessing layer ensures a higher quality and more customized output, distinguishing the CLI tool's capabilities from standard InstantID implementations.
+At its essence, `configs.py` acts as the intermediary between raw input data and the generative AI models. By processing images in large batches — adjusting dimensions, applying filters, or selecting poses — and specifying generation parameters, it enriches the input data to better suit the model's needs and user expectations. This preprocessing layer ensures a higher quality and more customized output, distinguishing the CLI tool's capabilities from standard GUI image generations implementations.
 
 ### generation_log.csv
 
-The `generation_log.csv` is an innovative addition to this CLI-based image generation framework that markedly enhances the usability and analytical capabilities of the tool. Diverging from the standard InstantID implementation, which primarily focuses on the generation outcomes without comprehensive tracking of the generative parameters and results, this logging mechanism provides a detailed record of each generation attempt, encompassing a wide array of parameters and outcomes.
+The `generation_log.csv` is an innovative addition to the Kumori CLI Engine framework that markedly enhances the usability and analytical capabilities of the tool. Diverging from the standard InstantID implementation, which primarily focuses on the generation outcomes without comprehensive tracking of the generative parameters and results, this logging mechanism provides a detailed record of each generation attempt, encompassing a wide array of parameters and outcomes.
 
 #### Key Features of generation_log.csv:
 
@@ -234,7 +236,7 @@ The `generation_log.csv` is an innovative addition to this CLI-based image gener
 
 - **Pose Analysis**: The log provides references to the `chosen_pose` and `most_alike_pose` along with distances (`most_alike_eye_distance`, `most_alike_nose_mouth_distance`, `most_alike_distance_difference`), indicating the effectiveness and accuracy of pose estimation and matching in the generation process.
 
-#### Improvement Over InstantID GUI version:
+#### Benefits to CLI Over GUI tools:
 
 This rich logging capability provides an unparalleled advantage for users and researchers aiming to deeply understand the generative process and its dependencies on various parameters and conditions. It allows for:
 
@@ -260,7 +262,7 @@ The `summarize_and_merge_generation_log.py` script is a powerful tool designed t
 4. **Provides Detailed Stats**: Outputs detailed statistics for individual models as well as combined averages across all models. This includes usage counts, average values of key metrics, and more.
 5. **Efficiency Indexes**: Calculates and displays special indexes like the Preference Efficiency Index (PEI) and Model Efficiency Index (MEI) to rank models based on performance and effectiveness.
 
-#### How to Use the Script
+#### How to Use the `summarize_and_merge_generation_log.py` Script
 
 1. **Navigate to `generation_images` Folder**:
    Ensure you are in the `generation_images` folder where your generated images and log files are stored.
@@ -326,16 +328,6 @@ The `estimate_similar_faces.py` script enriches the CLI-based image generation p
 - **Promotes Creative Experimentation:** With detailed insights into pose dynamics, users are encouraged to experiment with how different poses interact with various styles and contexts. This experimentation can lead to innovative artistic explorations, uncovering new aesthetical territories within the realm of AI-assisted image generation.
 
 In essence, `estimate_similar_faces.py` serves as a critical component that seamlessly bridges the gap between raw input imagery and the nuanced requirements of artistic image generation. Through its integration with `configs.py`, it lays the groundwork for producing images that are not only visually captivating but also deeply personalized, reflecting a true convergence of art, technology, and individual identity.
-
-
-### Handling and saving generated images
-Changed the InstantID version to auto-upsize/scale images and save during the looping in standard location.
-
-Flexible Model and Style Selection: Users can select from a variety of pre-trained models or define custom prompts that guide the AI in producing desired visual styles and themes with some added other themes that have worked from the configs.py alignment.
-
-Adjustable Parameters: Enables on-the-fly modification of generation parameters including but not limited to the strength of identity preservation, artistic style influence, and environmental context of the generated images.
-
-Batch Processing Capability: Uniquely designed to handle batch image processing, kumori_cli.py supports processing multiple images consecutively, significantly speeding up the workflow for bulk image generation tasks.
 
 #### More infos, libraries and their significance:
 
