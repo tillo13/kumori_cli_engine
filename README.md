@@ -17,12 +17,10 @@ Kumori CLI Engine is rooted strongly in the InstantID [InstantID GitHub](https:/
 
 InstantID is accessible through user-friendly interfaces like Gradio, facilitating easy experimentation for users without deep technical expertise in command-line tools or programming. While this approach demystifies AI's complexities, it often caters to one-off generation tasks rather than batch processing or integrated workflows that many developers and researchers may require, I wanted to be able to "set it and forget it" to generated images.
 
-Since its realized I have been testing a way to automate InstantID in conjunction with various working HuggingFace models to offer a more versatile and automation-friendly solution. This approach is designed for those seeking deeper customization, speed in batch image processing, and a more scriptable interaction with InstantID's capabilities, bypassing the GUI constraints for increased flexibility and efficiency.
+Since InstantID rolle dout, I had been testing ways to automate InstantID in conjunction with various working HuggingFace models (added a handful of models that work in the `configs.py` file to choose from) to offer a more versatile and automation-friendly solution. This approach is designed for those seeking deeper customization, speed in batch image processing, and a more scriptable interaction with InstantID's capabilities, bypassing the GUI constraints.
 
 ## Why a CLI-based Approach?
 The motivation behind developing a CLI-based interface for InstantID interaction stems mostly from the fact that I have an RTX3060, which works alright, but leaves a bit to be desired on wait times to produce.  And waiting for an image to just try another bunch of settings was too time consuming, and would rather create several, and decide for myself what felt best, based on some of the ideal settings at differing strengths --it's worked out pretty good so far, so thought I'd share.
-
-This project, therefore, extends the original brilliance of InstantID into a realm where developers and researchers can harness its capabilities in a more flexible, efficient, and programmable manner, opening new avenues for creative and analytical tasks without relying on graphical interfaces.
 
 ## Getting Started
 
